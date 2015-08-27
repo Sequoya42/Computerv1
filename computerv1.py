@@ -45,10 +45,15 @@ def parse(str):
 	list = []
 	for x in reversed(range(0, getmax(left, right))):
 		list += [(float(i[1]), int(i[2])) for i in left if int(i[2]) == x]
-	for x in reversed(range(0, getmax(left, right))):
 		list += [(-float(i[1]), int(i[2])) for i in right if int(i[2]) == x]		
 	list = sorted(list, key=lambda tup:tup[1], reverse=True)
+	a = b = c = 0
+	for i in list:
+		if i[1] == 0: a += i[0];
+		else if i[1] == 1: b += i[0];
+		else if i[1] == 2: c += i[0];
 	print list
+	print (int(a), int(b), int(c))
 # -----------------------------------------#
 
 if __name__ == '__main__':
