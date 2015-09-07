@@ -69,6 +69,12 @@ def alpha_bet(str):
 	a = b = c = t = tt = 0
 	for n in reversed(range(0, m)):
 		for i in lst:
+			if i[1] == 2:
+				a += i[0]
+			if i[1] == 1:
+				b += i[0]
+			if i[1] == 0:
+				c += i[0]
 			if i[1] == n:
 				t += i[0]
 		if t != 0:
@@ -79,6 +85,7 @@ def alpha_bet(str):
 	return a,b,c, lst
 
 # -----------------------------------------#
+
 
 
 def solve_one(b, c):
@@ -118,7 +125,6 @@ def solve(str):
 	if a == 0 and b == 0 and c == 0:
 		print "cannot solve polynomial degree" ,  lst
 		return 
-	print lst
 	if b == 0 and a == 0:
 		return solve_none(c)
 	elif a == 0:
