@@ -52,6 +52,8 @@ def parse(str):
 	for ch in[' ', '^', '*']:
 		if ch in str:
 			str = str.replace(ch, '')
+	test = re.search("(([+|-]?[0-9].?[0-9]*)[Xx]([0-9])*)", str.split(('='))[0])
+	print test
 	left = re.findall("(([+|-]?[0-9].?[0-9]*)[Xx]([0-9])*)", str.split(('='))[0])
 	right = re.findall("(([+|-]?[0-9].?[0-9]*)[Xx]([0-9])*)", str.split(('='))[1]) 
 	lst = []
