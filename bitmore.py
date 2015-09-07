@@ -49,14 +49,16 @@ def sqrt(t):
 #------------------------#
 
 def parse(str):
+	lst = []
 	for ch in[' ', '^', '*']:
 		if ch in str:
 			str = str.replace(ch, '')
 	test = re.search("(([+|-]?[0-9].?[0-9]*)[Xx]([0-9])*)", str.split(('='))[0])
-	print test
+	test2 = re.search("(([+|-]?[0-9].?[0-9]*)[Xx]([0-9])*)", str.split(('='))[0])
+	if not test or not test2:
+		return lst, -17
 	left = re.findall("(([+|-]?[0-9].?[0-9]*)[Xx]([0-9])*)", str.split(('='))[0])
 	right = re.findall("(([+|-]?[0-9].?[0-9]*)[Xx]([0-9])*)", str.split(('='))[1]) 
-	lst = []
 	m = getmax(left, right)
 	for x in reversed(range(0, m)):
 		lst += [(float(i[1]), int(i[2])) for i in left if int(i[2]) == x]
@@ -68,6 +70,8 @@ def parse(str):
 
 def alpha_bet(str):
 	lst, m = parse(str)
+	if m == -17 and lst == []:
+		return 0, 0, 0, "because the input is invalid"
 	a = b = c = t = tt = 0
 	for n in reversed(range(0, m)):
 		for i in lst:
@@ -87,8 +91,6 @@ def alpha_bet(str):
 	return a,b,c, lst
 
 # -----------------------------------------#
-
-
 
 def solve_one(b, c):
 	r = (- c) / b
