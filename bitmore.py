@@ -53,12 +53,16 @@ def parse(str):
 	for ch in[' ', '^', '*']:
 		if ch in str:
 			str = str.replace(ch, '')
-	test = re.search("(([+|-]?[0-9].?[0-9]*)[Xx]([0-9])*)", str.split(('='))[0])
-	test2 = re.search("(([+|-]?[0-9].?[0-9]*)[Xx]([0-9])*)", str.split(('='))[0])
-	if not test or not test2:
+	test = re.search("(([+|-]?[0-9]?[0-9]*)[Xx]([0-9])*)", str.split(('='))[0])
+	test2 = re.search("(([+|-]?[0-9]?[0-9]*)[Xx]([0-9])*)", str.split(('='))[0])
+	print test
+	print test2
+	if not test or not test2:	
 		return lst, -17
-	left = re.findall("(([+|-]?[0-9].?[0-9]*)[Xx]([0-9])*)", str.split(('='))[0])
-	right = re.findall("(([+|-]?[0-9].?[0-9]*)[Xx]([0-9])*)", str.split(('='))[1]) 
+	left = re.findall("(([+|-]?[0-9]?[0-9]*)[Xx]([0-9]*))", str.split(('='))[0])
+	right = re.findall("(([+|-]?[0-9]?[0-9]*)[Xx]([0-9]*))", str.split(('='))[1]) 
+	print left
+	print right
 	m = getmax(left, right)
 	for x in reversed(range(0, m)):
 		lst += [(float(i[1]), int(i[2])) for i in left if int(i[2]) == x]
