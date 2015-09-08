@@ -53,6 +53,10 @@ def parse(str):
 	for ch in[' ', '^', '*']:
 		if ch in str:
 			str = str.replace(ch, '')
+	trol = re.search(".*={1}", str)
+	trold = re.search("[a-w]+", str)
+	if not trol or trold:
+		return 0,0
 	test = re.search("(([+|-]?[0-9]?[0-9]*)[Xx]([0-9])*)", str.split(('='))[0])
 	test2 = re.search("(([+|-]?[0-9]?[0-9]*)[Xx]([0-9])*)", str.split(('='))[0])
 	if not test or not test2:	
@@ -71,7 +75,7 @@ def parse(str):
 def alpha_bet(str):
 	lst, m = parse(str)
 	if m == -17 and lst == []:
-		return 0, 0, 0, "because the input is invalid"
+		return 0, 0, 0, "Invalid input"
 	a = b = c = t = tt = 0
 	for n in reversed(range(0, m)):
 		for i in lst:
@@ -91,7 +95,35 @@ def alpha_bet(str):
 	return a,b,c, lst
 
 # -----------------------------------------#
+# -----------------------------------------#
 
+def solve(str):
+	a,b,c, lst = alpha_bet(str)
+	if a == b == c == 0:
+		if type(lst) == int:
+			print "cannot solve polynomial degree" ,  lst
+		elif type(lst) == type(""):
+			print lst
+		else:
+			print type(lst)
+			print "Every real is solution"
+		return 
+	if b == a == 0:
+		print "X cannot be found"
+		return 
+	elif a == 0:
+		return solve_one(b, c)
+	base_form(a,b,c)
+	d = (b**2) - (4 * a * c)
+	if d < 0:
+		return complex_solution(a, b, c, d)
+	elif d == 0:
+		r = (- b) / (2 * a)
+		print "x is %d" % (r)
+		return
+	solve_two(b,d,a)
+
+# -----------------------------------------#
 def solve_one(b, c):
 	r = (- c) / b
 	print "Polynomial degree one. Unique solution"
@@ -127,32 +159,7 @@ def solve_two(b, d, a):
 	print "x1 is :\t %f" % (x1)
 	print "x2 is :\t %f" % (x2)
 
-# -----------------------------------------#
 
-def solve(str):
-	a,b,c, lst = alpha_bet(str)
-	if a == b == c == 0:
-		if type(lst) == int:
-			print "cannot solve polynomial degree" ,  lst
-		else:
-			print "Every real is solution"
-		return 
-	if b == a == 0:
-		print "X cannot be found"
-		return 
-	elif a == 0:
-		return solve_one(b, c)
-	base_form(a,b,c)
-	d = (b**2) - (4 * a * c)
-	if d < 0:
-		return complex_solution(a, b, c, d)
-	elif d == 0:
-		r = (- b) / (2 * a)
-		print "x is %d" % (r)
-		return
-	solve_two(b,d,a)
-
-# -----------------------------------------#
 # -----------------------------------------#
 
 if __name__ == '__main__':
