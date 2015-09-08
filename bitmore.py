@@ -55,14 +55,10 @@ def parse(str):
 			str = str.replace(ch, '')
 	test = re.search("(([+|-]?[0-9]?[0-9]*)[Xx]([0-9])*)", str.split(('='))[0])
 	test2 = re.search("(([+|-]?[0-9]?[0-9]*)[Xx]([0-9])*)", str.split(('='))[0])
-	print test
-	print test2
 	if not test or not test2:	
 		return lst, -17
 	left = re.findall("(([+|-]?[0-9]?[0-9]*)[Xx]([0-9]*))", str.split(('='))[0])
 	right = re.findall("(([+|-]?[0-9]?[0-9]*)[Xx]([0-9]*))", str.split(('='))[1]) 
-	print left
-	print right
 	m = getmax(left, right)
 	for x in reversed(range(0, m)):
 		lst += [(float(i[1]), int(i[2])) for i in left if int(i[2]) == x]
@@ -81,10 +77,8 @@ def alpha_bet(str):
 		for i in lst:
 			if i[1] == n == 2:
 				a += i[0]
-				print a, i[0]
 			elif i[1] == n == 1:
 				b += i[0]
-				print b, i[0], n, i[1], i
 			elif i[1] == n == 0:
 				c += i[0]
 			elif i[1] == n:
@@ -115,11 +109,6 @@ def base_form(a,b,c):
 
 # -----------------------------------------#
 
-def solve_none(c):
-	print "Every real number is solution"
-
-# -----------------------------------------#
-
 def complex_solution(a, b, c, d):
 	both = -b / (2 * a)
 	print bclr.GREEN +  "\n Negative delta, complex solution (i where sqrt(i) = -1)" +  bclr.ENDC
@@ -143,10 +132,14 @@ def solve_two(b, d, a):
 def solve(str):
 	a,b,c, lst = alpha_bet(str)
 	if a == b == c == 0:
-		print "cannot solve polynomial degree" ,  lst
+		if type(lst) == int:
+			print "cannot solve polynomial degree" ,  lst
+		else:
+			print "Every real is solution"
 		return 
 	if b == a == 0:
-		return solve_none(c)
+		print "X cannot be found"
+		return 
 	elif a == 0:
 		return solve_one(b, c)
 	base_form(a,b,c)
